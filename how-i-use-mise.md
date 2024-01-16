@@ -182,10 +182,11 @@ instead.
 I often need to access mise's internals so I do the following:
 
 ```sh
-$ ln -s ~/.mise ~/.config/mise
-$ ln -s ~/.mise ~/.local/share/mise
-$ ln -s ~/.mise ~/.local/state/mise
-$ ln -s ~/.mise/cache ~/.cache/mise
+mkdir -p ~/.mise
+ln -s ~/.config/mise ~/.mise/config
+ln -s ~/.local/share/mise ~/.mise/share
+ln -s ~/.local/state/mise ~/.mise/state
+ln -s ~/.cache/mise ~/.mise/cache
 ```
 
 It is good that mise generally follows XDG spec, but for tools that I interact
