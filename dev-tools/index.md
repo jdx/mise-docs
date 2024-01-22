@@ -119,3 +119,49 @@ $ alias x="mise x --"
 :::
 
 Similarly, `mise run` can be used to [execute tasks](/tasks/) which will also activate the mise environment with all of your tools.
+
+## "command not found" handler
+
+In major shells (bash, zsh, fish), when using `mise activate`, mise-en-place will install a "command not found" handler so that in the
+event of running a command where a version is missing it will automatically install the missing version before running the command.
+
+For example, if you have the following versions of node installed:
+
+```sh
+$ mise ls node
+Plugin  Version  Config Source    Requested
+node    18.19.0
+node    20.10.0
+node    21.5.0   ~/.tool-versions 21.5.0
+```
+
+And you enter a directory that has a `.node-version` file with `v22` inside of it, mise-en-place will automatically install node
+just before running commands like `node` or `npm` because otherwise they would cause a "command not found" error.
+
+This functionality has many caveats. It's designed as a "best-effort" solution to avoid the common problem of jumping into a new
+project that defines a version you have not installed, and seamlessly fetching it just before you need it. It is not designed
+to account for 100% of scenarios.
+
+Because this is implemented as a "command not found" shell hook—this means it will not work inside of a script.
+
+I've chosen not to implement this as a hook that runs if something is missing on `cd`. mise-en-place did have that functionality at
+one point but I found it quite annoying because you might not want to even run a tool—and some of them take very long to install.
+
+mise-en-place is designed such that you don't have to use everything in a `.tool-verisons` file or `.mise.toml` file if you
+don't want to. For example, if some developers on your team manage `shfmt`, `python`, and `node` with mise-en-place, but you
+simply want to have `node` managed with mise-en-place, you will be able to do that. For that reason, mise-en-place will only
+install _versions of previously installed tools_. Not new tools entirely. This is also done in part because of the way it is
+implemented. mise-en-place needs to know _which_ bins a tool exports and this isn't something plugins define. It is looked up
+when the "command not found" handler is run. For example, if you run `npm` and it hits the handler, mise-en-place needs to know
+that `npm` is part of the node plugin. It does this by looking at the inactive node versions and what they export.
+
+Also, mise-en-place gracefully degrades to the system version of tools. This makes it seamlessly
+disappear when it is not configured—not forcing you to manage everything via mise-en-place.
+So, in the example above, if you don't have node-22 installed but do have a system node installed, mise-en-place will
+use your system version and not hit the "command not found" handler.
+
+The goal with all of this is not to make sure you are always running the versions specified in `.tool-versions` or `.mise.toml`.
+The goal is to make mise-en-place unobtrusive but also capable of handling the common problem of entering a project
+and not having run `mise install` to get the correct versions.
+
+This functionality can be disabled with `MISE_NOT_FOUND_AUTO_INSTALL=0` or `mise settings set not_found_auto_install 0`.
