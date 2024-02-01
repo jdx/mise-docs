@@ -41,9 +41,9 @@ required system dependencies.
 mise-node can automatically install a default set of npm packages right after installing a node version. To enable this feature, provide a `$HOME/.default-npm-packages` file that lists one package per line, for example:
 
 ```text
-lodash
-request
-express
+@angular/cli
+mocha
+typescript-language-server
 ```
 
 You can specify a non-default location of this file by setting a `MISE_NODE_DEFAULT_PACKAGES_FILE` variable.
