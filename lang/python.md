@@ -147,6 +147,14 @@ CFLAGS="-I$(brew --prefix openssl)/include" \
 brew link pkg-config
 ```
 
+## Setting Up PyCharm to Use the Appropriate Base Python on macOS
+
+To instruct PyCharm to prioritize your Python3 installation over the system's Python install, you can execute the command below:
+
+```sh
+sudo ln -s ~/.local/share/mise/installs/python/latest/bin/python3 /usr/local/bin/python3
+```
+
 ## Automatic virtualenv activation <Badge type="warning" text="experimental" />
 
 Python comes with virtualenv support built in, use it with `.mise.toml` configuration like
