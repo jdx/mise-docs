@@ -54,24 +54,37 @@ like scripts or IDEs).
 
 ::: code-group
 ```sh [bash]
-echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' >> ~/.bash_profile
+echo 'eval $(mise activate bash --shims)' >> ~/.bash_profile
 ```
 ```sh [zsh]
-echo 'export PATH="$HOME/.local/share/mise/shims:$PATH"' >> ~/.zprofile
+echo 'eval $(mise activate zsh --shims)' >> ~/.zprofile
 ```
 ```sh [fish]
 fish_add_path ~/.local/share/mise/shims
 ```
-
-:::tip
-You can also run `mise activate --shims` which will do the above for you.
 :::
 
 :::info
 mise respects [`MISE_DATA_DIR`](/configuration) and [`XDG_DATA_HOME`](/configuration) if you'd like to change these locations.
 :::
 
-### 3. Adding tools to mise <Badge type="tip" text="optional" />
+### 3. Activate autocompletion
+
+There's an autocompletion mode of the mise command you can activate doing this :
+
+::: code-group
+```sh [bash]
+echo 'source <(mise completion bash)' >> ~/.bashrc
+```
+```sh [zsh]
+echo 'source <(mise completion zsh)' >> ~/.zshrc
+```
+```sh [fish]
+echo 'source <(mise completion fish)' >> ~/.config/fish/config.fish
+```
+:::
+
+### 4. Adding tools to mise <Badge type="tip" text="optional" />
 
 :::info
 Of course, if using mise solely for [environment management](/environments) or [running tasks](/tasks/)
