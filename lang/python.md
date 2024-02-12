@@ -152,7 +152,7 @@ brew link pkg-config
 To instruct PyCharm to prioritize your Python3 installation over the system's Python install, you can execute the command below:
 
 ```sh
-sudo ln -s ~/.local/share/mise/installs/python/latest/bin/python3 /usr/local/bin/python3
+sudo ln -s ~/.local/share/mise/installs/python/3/bin/python3 /usr/local/bin/python3
 ```
 
 ## Automatic virtualenv activation <Badge type="warning" text="experimental" />
