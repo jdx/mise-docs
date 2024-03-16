@@ -326,12 +326,24 @@ See [`MISE_FISH_AUTO_ACTIVATE=1`](/configuration#mise_fish_auto_activate1) for m
 
 #### Nushell
 
+Since Nu does [not support `eval`](https://www.nushell.sh/book/how_nushell_code_gets_run.html#eval-function) you must save the activation script:
+
 ```nushell
-do {
-  let misepath = ($nu.config-path | path dirname | path join "mise.nu")
-  run-external mise activate nu --redirect-stdout | save $misepath -f
-  $"\nsource "($misepath)"" | save $nu.config-path --append
-}
+let mise_path = $nu.default-config-dir | path join scripts mise.nu
+^mise activate nu | save $mise_path --force
+"\nuse mise.nu" | save $nu.config-path --append
+```
+
+If you prefer to keep your dotfiles clean you can save it to another directory then update `$env.NU_LIB_DIRS`:
+
+```nushell
+"\n$env.NU_LIB_DIRS ++= ($mise_path | path dirname | to nuon)" | save $nu.env-path --append
+```
+
+You can update the generated script at any time by re-running:
+
+```nushell
+^mise activate nu | save $mise_path --force
 ```
 
 #### Xonsh
