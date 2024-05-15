@@ -6,6 +6,7 @@
     "vitepress": "1.1.4"
   },
   "scripts": {
+    "gen-registry": "bun run generate-registry.js",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"

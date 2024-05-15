@@ -174,3 +174,4 @@ dist
 # VitePress
 .vitepress/cache
 .vitepress/dist
+registry.md
