@@ -58,7 +58,7 @@ In case an unsupported version of java is needed, some manual work is required:
 4. Don't forget to make sure the cache is blocked and valid, by making sure an **empty** directory **exists** for your version in the [mise cache](https://mise.jdx.dev/directories.html#cache-mise):
    e.g.
    ```sh
-   $ ls -R $MISE_CACHE_SIR/java
+   $ ls -R $MISE_CACHE_DIR/java
    21.0.1-open
    
    mise/java/21.0.1-open:
